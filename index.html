@@ -7,12 +7,149 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div id="app"></div>
+<div id="app">
+    <section class="compound-interest">
+        <div>
+            <div class="description__banner">
+                <img src="assets/banner.svg" alt="Banner" class="description__img"/>
+            </div>
+            <div class="description__info">
+                <h1>Сложный процент</h1>
+                <span>
+            Сложный процент — это процент, который начисляется на начальную сумму вложений, а также на проценты, накопленные за предыдущие периоды. Начисление сложных процентов предполагает реинвестирование полученного дохода.
+        </span>
+            </div>
+        </div>
+        <div class="calculator__form">
+            <h6>Валюта</h6>
+            <div class="calculator__tabs">
+                <input name="currency" id="RUB" type="radio" checked value="RUB">
+                <label for="RUB" class="calculator__type-label" onclick="change_currency('RUB')">рубль</label>
+                <input name="currency" id="USD" type="radio" value="USD">
+                <label for="USD" class="calculator__type-label" onclick="change_currency('USD')">доллар</label>
+                <input name="currency" id="EUR" type="radio" value="EUR">
+                <label for="EUR" class="calculator__type-label" onclick="change_currency('EUR')">евро</label>
+            </div>
+            <h6>Стартовый капитал</h6>
+            <div class="form__row">
+                <input type="number" placeholder="100 000" id="startupInput" oninput="generateTable()">
+                <span class="mask mask__right">RUB</span>
+            </div>
+            <h6>Срок инвестирования</h6>
+            <div class="form__row">
+                <div class="calculator-input">
+                    <input type="number" class="calculator-input__value" name="time_value" id="startupTermInput"
+                           oninput="generateTable()">
+                    <div class="term__container" onclick="open_term()">
+                        <span class="term__base">МЕСЯЦ</span>
+                        <img src="assets/arrow-down.svg" alt="Down" class="arrow-svg">
+                        <div class="term__add-container">
+                            <div class="term__internal-container">
+                                <div class="time-type-selector__option css-10wo9uf-option selected"
+                                     aria-disabled="false" id="react-select-3-option-0" tabindex="-1" role="option"
+                                     aria-selected="false" onclick="change_term('месяц')">МЕСЯЦ
+                                </div>
+                                <div class="time-type-selector__option time-type-selector__option--is-focused time-type-selector__option--is-selected css-tr4s17-option"
+                                     aria-disabled="false" id="react-select-3-option-1" tabindex="-1" role="option"
+                                     aria-selected="true" onclick="change_term('год')">ГОД
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6>Дополнительные вложения в месяц</h6>
+            <div class="form__row">
+                <input type="number" placeholder="5 000" id="additionalAttachmentsInput" oninput="generateTable()">
+                <span class="mask mask__right">RUB</span>
+            </div>
+            <div class="form__row">
+                <div class="profit-withdrawal__container" onclick="open_profit()">
+                    <span>Выводим прибыль ежемесячно</span>
+                    <img src="assets/arrow-down.svg" alt="Down" class="arrow-svg">
+                    <div class="profit-withdrawal__add-container">
+                        <div class="profit-withdrawal__internal-container">
+                            <div class="profit-withdrawal__item selected" aria-disabled="false"
+                                 id="react-select-3-option-2" tabindex="-1" role="option" aria-selected="true"
+                                 onclick="change_profit('first')">Выводим прибыль ежемесячно
+                            </div>
+                            <div class="profit-withdrawal__item" aria-disabled="false" id="react-select-3-option-3"
+                                 tabindex="-1" role="option" aria-selected="true" onclick="change_profit('last')">
+                                Реинвестировать ежемесячно
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6>Ставка в месяц</h6>
+            <div class="form__row">
+                <input type="text" placeholder="5.5" id="ratePerMonthInput" oninput="generateTable()">
+                <span class="mask mask__percent">%</span>
+            </div>
+            <div class="result__container">
+                <div class="result__blue-block" style="display: none;">
+                    <h5>Результат инвестирования</h5>
+                    <span></span>
+                </div>
+            </div>
+            <div class="graph__container">
+                <h2 class="graph__info" id="warningMessageChart">Для отображения графика заполните все поля</h2>
+                <div class="canvas-container" id="investmentChart" style="display: none;">
+                    <canvas id="myChart" class="canvas"></canvas>
+                </div>
+                <div class="statistics__footnotes" id="statisticsChart" style="display: none;">
+                    <div class="statistics__footnote">
+                        <span class="statistics__footnote-icon background__blue-one"></span>
+                        Капитал на начало срока
+                    </div>
+                    <div class="statistics__footnote">
+                        <span class="statistics__footnote-icon background__green-three"></span>
+                        Прибыль
+                    </div>
+                    <div class="statistics__footnote">
+                        <span class="statistics__footnote-icon background__red"></span>
+                        Сумма дополнительных вложений
+                    </div>
+                </div>
+            </div>
+            <div class="detailed-calculation">
+                <h3>Подробный расчет</h3>
+                <h4 id="warningMessage">Для отображения подробного расчета заполните все поля</h4>
+                <table id="investmentTable" style="display: none;">
+                    <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Капитал на начало срока</th>
+                        <th>Сумма дополнительных вложений</th>
+                        <th>Прибыль</th>
+                        <th>Итог</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    <!-- Данные будут добавлены с помощью JavaScript -->
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td>ИТОГИ ИНВЕСТИРОВАНИЯ</td>
+                        <td id="totalStartCapital"></td>
+                        <td id="totalAdditionalInvestment"></td>
+                        <td id="totalProfit"></td>
+                        <td id="totalSum"></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <button class="purchase">Купить торговую систему</button>
+        </div>
+    </section>
+</div>
 
-    <script src="js/App.js"></script>
+
+<script src="js/App.js"></script>
 </body>
 </html>
