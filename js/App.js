@@ -1,7 +1,7 @@
 const descriptionBlock = `
 <div>
     <div class="description__banner">
-        <img src="../assets/banner.svg" alt="Banner" class="description__img"/>
+        <img src="/assets/banner.svg" alt="Banner" class="description__img"/>
     </div>
     <div class="description__info">
         <h1>Сложный процент</h1>
@@ -52,7 +52,7 @@ const calculatorForm = `
         <div class="form__row">
             <div class="profit-withdrawal__container" onclick="open_profit()">
                 <span>Выводим прибыль ежемесячно</span>
-                <img src="../assets/arrow-down.svg" alt="Down" class="arrow-svg">
+                <img src="/assets/arrow-down.svg" alt="Down" class="arrow-svg">
                 <div class="profit-withdrawal__add-container">
                     <div class="profit-withdrawal__internal-container">
                         <div class="profit-withdrawal__item selected" aria-disabled="false" id="react-select-3-option-2" tabindex="-1" role="option" aria-selected="true" onclick="change_profit('first')">Выводим прибыль ежемесячно</div>
