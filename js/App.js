@@ -1,7 +1,7 @@
 const descriptionBlock = `
 <div>
     <div class="description__banner">
-        <img src="/assets/banner.svg" alt="Banner" class="description__img"/>
+        <img src="../assets/banner.svg" alt="Banner" class="description__img"/>
     </div>
     <div class="description__info">
         <h1>Сложный процент</h1>
