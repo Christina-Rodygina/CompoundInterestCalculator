@@ -1,7 +1,7 @@
 const descriptionBlock = `
 <div>
     <div class="description__banner">
-        <img src="assets/banner.svg" alt="Banner" class="description__img"/>
+        <img src="/assets/banner.svg" alt="Banner" class="description__img"/>
     </div>
     <div class="description__info">
         <h1>Сложный процент</h1>
@@ -34,7 +34,7 @@ const calculatorForm = `
                 <input type="number" class="calculator-input__value" name="time_value" id="startupTermInput" oninput="generateTable()">
                 <div class="term__container" onclick="open_term()">
                     <span class="term__base">МЕСЯЦ</span>
-                    <img src="assets/arrow-down.svg" alt="Down" class="arrow-svg">
+                    <img src="/assets/arrow-down.svg" alt="Down" class="arrow-svg">
                     <div class="term__add-container">
                         <div class="term__internal-container">
                             <div class="time-type-selector__option css-10wo9uf-option selected" aria-disabled="false" id="react-select-3-option-0" tabindex="-1" role="option" aria-selected="false" onclick="change_term('месяц')">МЕСЯЦ</div>
