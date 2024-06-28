@@ -196,6 +196,7 @@ h5 {
     width: 100%;
     /*border: 1px solid #ccc;*/
     justify-content: space-between;
+    align-items: center;
 }
 
 .term__container span {
